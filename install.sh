@@ -1,44 +1,53 @@
-#!/bin/sh
+#!/bin/bash
 
-# Install the Rust project
-cargo install --path .
-
-# Get path to the terminal-monsters-worker executable
-WORKER_PATH=$(which terminal-monsters-worker)
-if [ -z "$WORKER_PATH" ]; then
-    echo "Error: terminal-monsters-worker not found in PATH."
-    exit 1
-fi
-
-# Determine the shell configuration file to use based on the SHELL environment variable
+# Configuration
+INSTALL_DIR="$HOME/.terminal-monsters"
+BIN_DIR="$HOME/.local/bin"
 SHELL_CONFIG="$HOME/.bashrc"
-SHELL_NAME="Bash"
+GITHUB_REPO="enzo-rma/terminal-monsters"
+VERSION="latest"
+
+# Determine OS and architecture
+OS=$(uname -s | tr '[:upper:]' '[:lower:]')
+ARCH=$(uname -m)
+case $ARCH in
+    x86_64) ARCH="x86_64" ;;
+    aarch64) ARCH="aarch64" ;;
+    *) echo "Unsupported architecture: $ARCH"; exit 1 ;;
+esac
+
+# Determine shell configuration file
 if [ "$(basename "$SHELL")" = "zsh" ]; then
     SHELL_CONFIG="$HOME/.zshrc"
-    SHELL_NAME="Zsh"
 fi
 
-# Print installation success message
-printf "\n"
-printf "\033[32m+ Terminal Monsters Inc. ---------------- +\033[0m\n"
-printf "\033[32m|\033[0m\n"
-printf "\033[32m|\033[0m Installation complete,\033[1m Shellora\033[0m joined your party!\n"
-printf "\033[32m|\033[0m\n"
-printf "\033[32m+ --------------------------------------- +\033[0m\n"
+# Create directories
+mkdir -p "$INSTALL_DIR"
+mkdir -p "$BIN_DIR"
 
-# Print manual configuration instructions
-printf "\n"
-printf "\033[33m+ Manual Configuration Required ----------+\033[0m\n"
-printf "\033[33m|\033[0m\n"
-printf "\033[33m|\033[0m - Add the Terminal Monsters function, hooks and alias\n"
-printf "\033[33m|\033[0m   to your \033[1m\033[34m$SHELL_CONFIG\033[0m\033[0m file by referring to\n"
-printf "\033[33m|\033[0m   the documentation: \033[1m\033[34mhttps://github.com/enzo-rma/terminal-monsters\033[0m\033[0m\n"
-printf "\033[33m|\033[0m\n"
-printf "\033[33m|\033[0m - Save your changes and source your shell configuration\n"
-printf "\033[33m|\033[0m   file by running the source command:\n"
-printf "\033[33m|\033[0m   \033[1m\033[34msource $SHELL_CONFIG\033[0m\033[0m\n"
-printf "\033[33m|\033[0m\n"
-printf "\033[33m|\033[0m - Run \033[1m\033[34mterminal-monsters\033[0m\033[0m from any terminal window\n"
-printf "\033[33m|\033[0m   to open the game UI.\n"
-printf "\033[33m|\033[0m\n"
-printf "\033[33m+-----------------------------------------+\033[0m\n"
+# Download binaries
+echo "Downloading Terminal Monsters..."
+DOWNLOAD_URL="https://github.com/$GITHUB_REPO/releases/$VERSION/download/terminal-monsters-$OS-$ARCH.tar.gz"
+curl -L "$DOWNLOAD_URL" | tar xz -C "$INSTALL_DIR"
+
+# Install binaries
+chmod +x "$INSTALL_DIR/terminal-monsters-app"
+chmod +x "$INSTALL_DIR/terminal-monsters-worker"
+ln -sf "$INSTALL_DIR/terminal-monsters-app" "$BIN_DIR/tm"
+ln -sf "$INSTALL_DIR/terminal-monsters-worker" "$BIN_DIR/tm-worker"
+
+# Add shell configuration
+cat << EOF >> "$SHELL_CONFIG"
+
+# Terminal Monsters configuration
+export PATH="\$PATH:$BIN_DIR"
+precmd() {
+    eval \$(tm-worker)
+}
+alias tm='terminal-monsters-app'
+EOF
+
+# Notify success
+printf "\n\033[32m✓ Terminal Monsters installed successfully!\033[0m\n"
+printf "Run 'source $SHELL_CONFIG' to complete the installation.\n"
+printf "Then type 'tm' to start the game.\n"

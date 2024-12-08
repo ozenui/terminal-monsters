@@ -13,8 +13,8 @@ use std::io::{stdout, Result, Stdout};
 use ui::{header_ui::render_header_ui, party_ui::render_party_ui};
 
 fn main() -> Result<()> {
-    // Set terminal tab title to "Terminal Monsters Inc."
-    print!("\x1b]0;Terminal Monsters Inc.\x07");
+    // Set terminal tab title
+    print!("\x1b]0;Terminal Monsters\x07");
 
     let mut terminal = setup_terminal()?;
     let mut selected_row = 0;

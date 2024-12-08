@@ -1,0 +1,50 @@
+name: Release
+
+on:
+  push:
+    tags:
+      - "v*"
+
+jobs:
+  build:
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os: [ubuntu-latest, macos-latest]
+        include:
+          - os: ubuntu-latest
+            target: x86_64-unknown-linux-gnu
+            archive: terminal-monsters-linux-x86_64.tar.gz
+          - os: macos-latest
+            target: x86_64-apple-darwin
+            archive: terminal-monsters-macos-x86_64.tar.gz
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Setup Rust
+        uses: actions-rs/toolchain@v1
+        with:
+          toolchain: stable
+          target: ${{ matrix.target }}
+          override: true
+
+      - name: Build
+        run: cargo build --release --target ${{ matrix.target }}
+
+      - name: Package
+        run: |
+          tar czf ${{ matrix.archive }} \
+            -C target/${{ matrix.target }}/release \
+            terminal-monsters-app \
+            terminal-monsters-worker
+
+      - name: Upload Release Asset
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ github.event.release.upload_url }}
+          asset_path: ./${{ matrix.archive }}
+          asset_name: ${{ matrix.archive }}
+          asset_content_type: application/gzip
