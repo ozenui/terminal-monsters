@@ -1,7 +1,7 @@
 #[allow(unused_imports)]
 use app::models::dex::{get_dex_mon_by_id, load_dex, DexMon, Family};
 use app::models::party::{initialize_party, save_party, PartyMon};
-use colored::*;
+use notify_rust::Notification;
 use std::{
     collections::HashMap,
     io::{self, BufRead},
@@ -66,9 +66,18 @@ fn process_command(
 fn handle_collect_command(dex_mon: &DexMon, party: &mut Vec<PartyMon>) -> io::Result<()> {
     if let Some(mon) = party.iter_mut().find(|mon| mon.dex_id == dex_mon.id) {
         mon.gain_experience(33);
+        let _ = Notification::new()
+            .summary(&format!("{} gained 33 Exp!", dex_mon.name))
+            .body("Run `tm` from your terminal to check your party.")
+            .icon("firefox")
+            .show();
     } else {
         party.push(PartyMon::new(dex_mon.id, 1, (0, 100)));
-        notify_user(dex_mon);
+        let _ = Notification::new()
+            .summary(&format!("{} joined your party!", dex_mon.name))
+            .body("Run `tm` from your terminal to check your party.")
+            .icon("firefox")
+            .show();
     }
     save_party(&party)
 }
@@ -78,26 +87,4 @@ fn handle_exp_command(dex_mon: &DexMon, party: &mut Vec<PartyMon>) -> io::Result
         mon.gain_experience(1);
     }
     save_party(&party)
-}
-
-fn notify_user(dex_mon: &DexMon) {
-    println!("{}", "+ Terminal Monsters Inc. -----------------+".green());
-    println!(
-        "{}",
-        format!(
-            "{} {} joined your party!",
-            "|".green(),
-            dex_mon.name.bold().color(match dex_mon.family {
-                Family::Scripting => "dark gray",
-                Family::Web => "red",
-                Family::Mobile => "green",
-                Family::Gaming => "blue",
-                Family::Database => "yellow",
-                Family::Systems => "cyan",
-                Family::Neural => "magenta",
-                Family::Ancient => "brown",
-            })
-        )
-    );
-    println!("{}", "+-----------------------------------------+".green());
 }
