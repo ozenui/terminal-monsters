@@ -1,52 +1,11 @@
 <script lang="ts">
     import "../app.css";
-    import { open } from "@tauri-apps/plugin-shell";
-    import DiscordIcon from "$lib/assets/discord-icon.svg";
-    import BlueSkyIcon from "$lib/assets/bluesky-icon.svg";
-    import GitHubIcon from "$lib/assets/github-icon.svg";
+    import { TitleBar } from "$lib/components/ui/title-bar";
 
     let { children } = $props();
-
-    const DISCORD_URL = "";
-    const BLUESKY_URL = "https://bsky.app/profile/ozenui.com";
-    const GITHUB_URL = "https://github.com/ozenui/terminal-monsters";
-
-    const openLink = async (url: string) => {
-        try {
-            await open(url);
-        } catch (err) {
-            console.error("Failed to open link:", err);
-        }
-    };
 </script>
 
-<main
-    class="h-screen bg-background/75 relative w-screen flex flex-col overflow-hidden"
->
-    <header
-        class="flex px-4 select-none pl-[72px] h-8 text-xs items-center justify-between"
-        data-tauri-drag-region
-    >
-        <div
-            class="flex items-center cursor-default justify-center gap-2"
-            data-tauri-drag-region
-        >
-            Terminal Monsters
-        </div>
-        <div
-            class="flex opacity-20 user-select-none items-center justify-center gap-3"
-            data-tauri-drag-region
-        >
-            <button onclick={() => openLink(DISCORD_URL)}>
-                <img src={DiscordIcon} alt="Discord" />
-            </button>
-            <button onclick={() => openLink(BLUESKY_URL)}>
-                <img src={BlueSkyIcon} alt="BlueSky" />
-            </button>
-            <button onclick={() => openLink(GITHUB_URL)}>
-                <img src={GitHubIcon} alt="GitHub" />
-            </button>
-        </div>
-    </header>
+<main class="h-screen bg-background/75 w-screen flex flex-col overflow-hidden">
+    <TitleBar></TitleBar>
     {@render children()}
 </main>
