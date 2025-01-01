@@ -7,6 +7,10 @@
 
     let { children } = $props();
 
+    const DISCORD_URL = "";
+    const BLUESKY_URL = "https://bsky.app/profile/ozenui.com";
+    const GITHUB_URL = "https://github.com/ozenui/terminal-monsters";
+
     const openLink = async (url: string) => {
         try {
             await open(url);
@@ -33,22 +37,13 @@
             class="flex opacity-20 user-select-none items-center justify-center gap-3"
             data-tauri-drag-region
         >
-            <button
-                onclick={() =>
-                    openLink("https://github.com/ozenui/terminal-monsters")}
-            >
+            <button onclick={() => openLink(DISCORD_URL)}>
                 <img src={DiscordIcon} alt="Discord" />
             </button>
-            <button
-                onclick={() =>
-                    openLink("https://github.com/ozenui/terminal-monsters")}
-            >
+            <button onclick={() => openLink(BLUESKY_URL)}>
                 <img src={BlueSkyIcon} alt="BlueSky" />
             </button>
-            <button
-                onclick={() =>
-                    openLink("https://github.com/ozenui/terminal-monsters")}
-            >
+            <button onclick={() => openLink(GITHUB_URL)}>
                 <img src={GitHubIcon} alt="GitHub" />
             </button>
         </div>
