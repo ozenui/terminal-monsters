@@ -1,7 +1,7 @@
-# Tauri + SvelteKit + TypeScript
+# Terminal Monsters 👾
 
-This template should help get you started developing with Tauri, SvelteKit and TypeScript in Vite.
+A terminal-based game where you can collect, train, and battle monsters that live in your terminal!
 
-## Recommended IDE Setup
+Each monster in the dex is based off a specific programming language, framework, or technology, inspiring you to be curious and explore as many as possible to catch and train them all!
 
-[VS Code](https://code.visualstudio.com/) + [Svelte](https://marketplace.visualstudio.com/items?itemName=svelte.svelte-vscode) + [Tauri](https://marketplace.visualstudio.com/items?itemName=tauri-apps.tauri-vscode) + [rust-analyzer](https://marketplace.visualstudio.com/items?itemName=rust-lang.rust-analyzer).
+Work in progress. More details soon :)
