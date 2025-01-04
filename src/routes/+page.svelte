@@ -73,7 +73,7 @@
                     {/each}
 
                     {#each dexMonsters.filter((d) => !partyMonsters.some((p) => p.dex_id === d.id)) as mon}
-                        <Table.Row class="text-muted-foreground/50">
+                        <Table.Row class="text-muted-foreground/60">
                             <Table.Cell class="w-2 pr-0">{mon.id}</Table.Cell>
                             <Table.Cell>???</Table.Cell>
                         </Table.Row>
@@ -83,7 +83,7 @@
         </aside>
 
         <content
-            class="w-full rounded-ss flex flex-col h-screen bg-primary/3 overflow-y-auto text-sm"
+            class="w-full rounded-ss flex flex-col h-screen bg-primary/4 overflow-y-auto text-sm"
         >
             <section
                 class="px-4 p-8 h-[256px] flex items-center justify-center"
@@ -96,7 +96,7 @@
             </section>
 
             <section class="px-4 py-2 flex w-full justify-between items-center">
-                <div class="text-muted-foreground/50">Name</div>
+                <div class="text-muted-foreground">Name</div>
                 <div>
                     {dexMonsters.find((m) => m.id === selectedMonster?.dex_id)
                         ?.name}
@@ -104,7 +104,7 @@
             </section>
 
             <section class="px-4 py-2 flex w-full justify-between items-center">
-                <div class="text-muted-foreground/50">Family</div>
+                <div class="text-muted-foreground">Family</div>
                 <div>
                     {dexMonsters.find((m) => m.id === selectedMonster?.dex_id)
                         ?.family}
@@ -112,7 +112,7 @@
             </section>
 
             <section class="px-4 py-2 flex w-full justify-between items-center">
-                <div class="text-muted-foreground/50">Rarity</div>
+                <div class="text-muted-foreground">Rarity</div>
                 <div class="flex gap-1">
                     {#each Array(dexMonsters.find((m) => m.id === selectedMonster?.dex_id)?.rarity) as _}
                         <img src={RarityBadge} alt="Rarity Badge Artwork" />
@@ -123,14 +123,14 @@
             <Separator class="my-2 bg-primary/5" />
 
             <section class="px-4 py-2 flex w-full justify-between items-center">
-                <div class="text-muted-foreground/50">Level</div>
+                <div class="text-muted-foreground">Level</div>
                 <div>
                     {selectedMonster.level}
                 </div>
             </section>
 
             <section class="px-4 py-2 flex w-full justify-between items-center">
-                <div class="text-muted-foreground/50">Exp.</div>
+                <div class="text-muted-foreground">Exp.</div>
                 <div>
                     <Progress
                         value={selectedMonster.experience_range[0]}
