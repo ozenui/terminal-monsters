@@ -4,7 +4,7 @@
     import { Progress } from "$lib/components/ui/progress/index.js";
     import Separator from "$lib/components/ui/separator/separator.svelte";
     import RarityBadge from "$lib/assets/rarity-badge.svg";
-    import MockMonsterImage from "$lib/assets/monster-placeholder-light.png";
+    import MonsterPlaceholderSprite from "$lib/assets/monster-sprite-placeholder.png";
     import type { DexMon, PartyMon } from "$lib/types";
 
     let dexMonsters = $state<DexMon[]>([]);
@@ -89,7 +89,7 @@
                 class="px-4 p-8 h-[256px] flex items-center justify-center"
             >
                 <img
-                    src={MockMonsterImage}
+                    src={MonsterPlaceholderSprite}
                     alt="Mock Monster Artwork"
                     class="h-full"
                 />
