@@ -1,13 +1,11 @@
-use crate::shared::{dex, party, DexMon};
+use crate::data::{Dex, Party};
 
 #[tauri::command]
-pub async fn get_dex() -> Vec<DexMon> {
-    dex::load_dex()
+pub async fn get_dex() -> Dex {
+    Dex::load().expect("Error while getting dex.")
 }
 
 #[tauri::command]
-pub async fn get_party() -> Result<String, String> {
-    party::load_party()
-        .map_err(|e| e.to_string())
-        .map(|party| serde_json::to_string(&party).unwrap())
+pub async fn get_collection() -> Party {
+    Party::load().expect("Error while getting collection.")
 }

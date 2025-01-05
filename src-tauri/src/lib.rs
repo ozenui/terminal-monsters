@@ -1,7 +1,7 @@
-pub mod shared;
+pub mod data;
 pub mod utils;
 
-use crate::utils::commands::{get_dex, get_party};
+use crate::utils::commands::{get_collection, get_dex};
 
 use tauri::{window::Color, Manager};
 use window_vibrancy::{apply_vibrancy, NSVisualEffectMaterial, NSVisualEffectState};
@@ -29,7 +29,7 @@ pub fn run() {
         })
         .plugin(tauri_plugin_opener::init())
         .plugin(tauri_plugin_shell::init())
-        .invoke_handler(tauri::generate_handler![get_dex, get_party])
+        .invoke_handler(tauri::generate_handler![get_dex, get_collection])
         .run(tauri::generate_context!())
         .expect("Error while running tauri application.");
 }

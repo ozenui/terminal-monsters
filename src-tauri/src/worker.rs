@@ -1,4 +1,5 @@
-use terminal_monsters_lib::shared::{collect_exp, collect_monster, load_dex, load_party, DexMon};
+use terminal_monsters_lib::data::{Dex, DexMon, Party};
+use terminal_monsters_lib::utils::send_system_notification;
 
 use std::collections::HashMap;
 use std::io::{BufRead, Result};
@@ -8,45 +9,41 @@ fn main() -> Result<()> {
 }
 
 fn run_worker() -> Result<()> {
-    let dex = load_dex();
-    let mut party = load_party()?;
+    let dex = Dex::load().expect("Unable to load dex.");
+    let mut party = Party::load().expect("Unable to load party.");
 
-    let mut collect_commands: HashMap<&str, &DexMon> = HashMap::new();
-    let mut exp_commands: HashMap<&str, &DexMon> = HashMap::new();
-
-    for monster in &dex {
-        for cmd in &monster.collect_cmds {
-            collect_commands.insert(cmd, monster);
+    let mut keys: HashMap<&str, &DexMon> = HashMap::new();
+    for mon in &dex.mons {
+        for key in &mon.keys {
+            keys.insert(key.as_str(), mon);
         }
-        for cmd in &monster.exp_commands {
-            exp_commands.insert(cmd, monster);
+    }
+
+    for mon in &mut party.mons {
+        if mon.gain_experience(7) {
+            send_system_notification(&format!(
+                "{} grew to level {}!",
+                Dex::find(&dex, mon.id)
+                    .expect("Monster ID should exist in Dex.")
+                    .name,
+                mon.level
+            ));
         }
     }
 
     let stdin = std::io::stdin();
     let reader = stdin.lock();
-
     for line in reader.lines() {
-        let command = line?;
+        let line = line?;
+        let matches: Vec<_> = keys.iter().filter(|(&key, _)| line.contains(key)).collect();
 
-        let collect_matches: Vec<_> = collect_commands
-            .iter()
-            .filter(|(&key, _)| command.contains(key))
-            .collect();
-
-        let exp_matches: Vec<_> = exp_commands
-            .iter()
-            .filter(|(&key, _)| command.contains(key))
-            .collect();
-
-        for (_, &monster) in collect_matches {
-            collect_monster(monster, &mut party)?;
-        }
-
-        for (_, &monster) in exp_matches {
-            collect_exp(monster, &mut party)?;
+        for (_, &mon) in matches {
+            mon.collect(&mut party);
+            send_system_notification(&format!("{} joined your party!", &mon.name));
         }
     }
+
+    party.save().expect("Unable to save party.");
 
     Ok(())
 }
