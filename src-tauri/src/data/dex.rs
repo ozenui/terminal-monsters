@@ -39,6 +39,7 @@ pub struct Dex {
 }
 
 impl Dex {
+    /// Return a DexMon from a given ID.
     pub fn find(&self, id: u32) -> io::Result<&DexMon> {
         for mon in &self.mons {
             if mon.id == id {
@@ -48,6 +49,7 @@ impl Dex {
         Err(io::Error::new(io::ErrorKind::NotFound, "Dexmon not found"))
     }
 
+    /// Return a list of DexMon from the Dex
     pub fn load() -> io::Result<Self> {
         Ok(Dex {
             mons: vec![
