@@ -37,7 +37,7 @@ impl PartyMon {
     }
 }
 
-// Helper function to calculate experience needed for next level
+/// Calculate experience needed for next level.
 fn calculate_next_level_exp(level: u32) -> u32 {
     if level == 1 {
         100
