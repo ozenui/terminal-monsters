@@ -6,7 +6,7 @@ export enum Family {
   Database = "Database",
   Systems = "Systems",
   Neural = "Neural",
-  Mythical = "mythical",
+  Mythical = "Mythical",
 }
 
 export interface DexMon {
