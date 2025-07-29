@@ -82,7 +82,7 @@
         </aside>
 
         <content
-            class="w-full rounded-ss flex flex-col h-screen bg-primary/4 overflow-y-auto text-sm"
+            class="w-full rounded-ss flex flex-col h-full bg-primary/4 overflow-y-auto text-sm"
         >
             <section
                 class="px-4 p-8 h-[256px] flex items-center justify-center"
@@ -138,6 +138,17 @@
                     />
                 </div>
             </section>
+
+            <Separator class="my-2 bg-primary/5" />
+            
+            <section class="px-4 py-2 flex w-full justify-between items-center">
+                <div>
+                    {dexMonsters.find((m) => m.id === selectedMonster?.dex_id)
+                        ?.description}
+                </div>
+            </section>
+
+            
         </content>
     {/if}
 </main>

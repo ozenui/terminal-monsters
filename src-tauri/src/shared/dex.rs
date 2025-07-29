@@ -11,7 +11,7 @@ pub enum Family {
     Database,
     Systems,
     Neural,
-    SecretMythical,
+    Mythical,
 }
 
 #[derive(Serialize, Deserialize, Debug, Clone)]
@@ -385,7 +385,7 @@ pub fn load_dex() -> Vec<DexMon> {
             id: 25,
             name: "Fornix".to_string(),
             title: "The Eternal Code Monster".to_string(),
-            family: Family::SecretMythical,
+            family: Family::Mythical,
             appearance: "A stone sphinx crowned with archaic code glyphs, its eyes glowing like ancient CRT screens.".to_string(),
             description: "Born from the first age of computing, Fornix whispers the wisdom of structured code. Though older than modern languages, its power endures across generations of trainers.".to_string(),
             rarity: 5,

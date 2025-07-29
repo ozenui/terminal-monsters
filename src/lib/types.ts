@@ -6,16 +6,19 @@ export enum Family {
   Database = "Database",
   Systems = "Systems",
   Neural = "Neural",
-  Ancient = "Ancient",
+  Mythical = "mythical",
 }
 
 export interface DexMon {
   id: number;
   name: string;
+  title: string;
   family: Family;
+  appearance: string;
+  description: string;
   rarity: number;
   collect_cmds: string[];
-  exp_commands: string[];
+  exp_cmds: string[];
 }
 
 export interface PartyMon {
