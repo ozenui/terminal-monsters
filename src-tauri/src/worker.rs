@@ -18,7 +18,7 @@ fn run_worker() -> Result<()> {
         for cmd in &monster.collect_cmds {
             collect_commands.insert(cmd, monster);
         }
-        for cmd in &monster.exp_commands {
+        for cmd in &monster.exp_cmds {
             exp_commands.insert(cmd, monster);
         }
     }
