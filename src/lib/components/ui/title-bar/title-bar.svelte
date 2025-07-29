@@ -34,7 +34,7 @@
     {...$$restProps}
 >
     <div
-        class="flex items-center cursor-default justify-center gap-2"
+        class="flex items-center opacity-40 cursor-default justify-center gap-2"
         data-tauri-drag-region
     >
         Terminal Monsters
