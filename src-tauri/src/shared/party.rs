@@ -1,5 +1,4 @@
-use crate::shared::dex::load_dex;
-use crate::shared::dex::DexMon;
+use crate::shared::dex::{load_dex, Command, DexMon};
 use crate::utils::notifications::send_system_notification;
 
 use dirs;
@@ -7,18 +6,21 @@ use serde::{Deserialize, Serialize};
 use std::fs::{self, File};
 use std::io::{self, BufReader, BufWriter};
 use std::path::PathBuf;
+use uuid::Uuid;
 
 #[derive(Serialize, Deserialize, Debug)]
 pub struct PartyMon {
     pub dex_id: u32,
+    pub key: Uuid,
     pub level: u32,
     pub experience_range: (u32, u32),
 }
 
 impl PartyMon {
-    pub fn new(dex_id: u32, level: u32, experience_range: (u32, u32)) -> Self {
+    pub fn new(dex_id: u32, key: Uuid, level: u32, experience_range: (u32, u32)) -> Self {
         Self {
             dex_id,
+            key,
             level,
             experience_range,
         }
@@ -67,6 +69,7 @@ pub fn load_party() -> io::Result<Vec<PartyMon>> {
         let starter_mon = load_dex().first().unwrap().clone();
         let party = vec![PartyMon::new(
             starter_mon.id,
+            starter_mon.key,
             1,
             (0, calculate_next_level_exp(1)),
         )];
@@ -96,14 +99,19 @@ pub fn save_party(party: &[PartyMon]) -> io::Result<()> {
 }
 
 /// Adds a new monster to the party. Collects experience if the monster is already added to the party.
-pub fn collect_monster(dex_mon: &DexMon, party: &mut Vec<PartyMon>) -> std::io::Result<()> {
+pub fn collect_monster(dex_mon: &DexMon, party: &mut Vec<PartyMon>, command: &Command) -> std::io::Result<()> {
     if let Some(mon) = party.iter_mut().find(|mon| mon.dex_id == dex_mon.id) {
-        if mon.gain_experience(7) {
+        if mon.key != dex_mon.key {
+            // TODO: Handle cheating attempt
+            return Ok(());
+        }
+        if mon.gain_experience(command.exp) {
             send_system_notification(&format!("{} grew to level {}!", dex_mon.name, mon.level));
         }
     } else {
         party.push(PartyMon::new(
             dex_mon.id,
+            dex_mon.key,
             1,
             (0, calculate_next_level_exp(1)),
         ));
@@ -113,9 +121,9 @@ pub fn collect_monster(dex_mon: &DexMon, party: &mut Vec<PartyMon>) -> std::io::
 }
 
 /// Collects experience points.
-pub fn collect_exp(dex_mon: &DexMon, party: &mut Vec<PartyMon>) -> std::io::Result<()> {
+pub fn collect_exp(dex_mon: &DexMon, party: &mut Vec<PartyMon>, command: &Command) -> std::io::Result<()> {
     if let Some(mon) = party.iter_mut().find(|mon| mon.dex_id == dex_mon.id) {
-        if mon.gain_experience(7) {
+        if mon.gain_experience(command.exp) {
             send_system_notification(&format!("{} grew to level {}!", dex_mon.name, mon.level));
         }
     }

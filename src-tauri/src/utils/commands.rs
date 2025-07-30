@@ -1,4 +1,5 @@
-use crate::shared::{dex, party, DexMon};
+use crate::shared::{dex, party};
+use crate::shared::dex::DexMon;
 
 #[tauri::command]
 pub async fn get_dex() -> Vec<DexMon> {

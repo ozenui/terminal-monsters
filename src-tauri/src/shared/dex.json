@@ -1,0 +1,1564 @@
+[
+  {
+    "id": 0,
+    "name": "Shellora",
+    "title": "The Shell Monster",
+    "family": "Scripting",
+    "appearance": "A mystical shell that glows with an inner light, covered in arcane symbols that shift and change. It hovers slightly above the ground, humming with a low, resonant energy.",
+    "description": "Shellora drifts silently through terminal streams, spawning subprocess echoes that confuse attackers. Its layered encryption shields it from fatal command errors.",
+    "rarity": 1,
+    "collect_cmds": [
+      {
+        "matcher": {
+          "Exact": "sh"
+        },
+        "exp": 10
+      },
+      {
+        "matcher": {
+          "StartsWith": "echo"
+        },
+        "exp": 8
+      },
+      {
+        "matcher": {
+          "StartsWith": "ls"
+        },
+        "exp": 5
+      }
+    ],
+    "exp_cmds": [
+      {
+        "matcher": {
+          "StartsWith": "cd"
+        },
+        "exp": 3
+      },
+      {
+        "matcher": {
+          "StartsWith": "pwd"
+        },
+        "exp": 3
+      },
+      {
+        "matcher": {
+          "StartsWith": "which"
+        },
+        "exp": 3
+      },
+      {
+        "matcher": {
+          "StartsWith": "history"
+        },
+        "exp": 5
+      },
+      {
+        "matcher": {
+          "StartsWith": "man"
+        },
+        "exp": 2
+      }
+    ]
+  },
+  {
+    "id": 1,
+    "name": "Basharoo",
+    "title": "The Script Wraith Monster",
+    "family": "Scripting",
+    "appearance": "A floating, spectral marsupial cloaked in drifting command glyphs, with an ethereal pouch shimmering with chained scripts. Its eyes glow like blinking cursors in the dark.",
+    "description": "Basharoo haunts file systems unseen, silently stringing together complex commands. It drifts between directories like a ghost, automating tasks before vanishing without a trace.",
+    "rarity": 1,
+    "collect_cmds": [
+      {
+        "matcher": {
+          "Exact": "bash"
+        },
+        "exp": 10
+      },
+      {
+        "matcher": {
+          "StartsWith": "bash -c"
+        },
+        "exp": 15
+      }
+    ],
+    "exp_cmds": [
+      {
+        "matcher": {
+          "StartsWith": "source"
+        },
+        "exp": 5
+      },
+      {
+        "matcher": {
+          "StartsWith": "export"
+        },
+        "exp": 3
+      },
+      {
+        "matcher": {
+          "StartsWith": "alias"
+        },
+        "exp": 5
+      },
+      {
+        "matcher": {
+          "Contains": ".bashrc"
+        },
+        "exp": 7
+      },
+      {
+        "matcher": {
+          "StartsWith": "chmod +x"
+        },
+        "exp": 5
+      }
+    ]
+  },
+  {
+    "id": 2,
+    "name": "Zishan",
+    "title": "The Advanced Shell Monster",
+    "family": "Scripting",
+    "appearance": "A sleek, mystical panther with fur shifting between dark terminal theme gradients. Its eyes glow in low light, and its whiskers spark during auto-completion.",
+    "description": "Zishan senses trainers' intentions before they finish typing. Prized by advanced users, it conjures aliases and shortcuts, transforming complex tasks into elegant invocations.",
+    "rarity": 1,
+    "collect_cmds": [
+      {
+        "matcher": {
+          "Exact": "zsh"
+        },
+        "exp": 10
+      },
+      {
+        "matcher": {
+          "StartsWith": "zsh -c"
+        },
+        "exp": 15
+      }
+    ],
+    "exp_cmds": [
+      {
+        "matcher": {
+          "StartsWith": "autoload"
+        },
+        "exp": 7
+      },
+      {
+        "matcher": {
+          "StartsWith": "compinit"
+        },
+        "exp": 7
+      },
+      {
+        "matcher": {
+          "Contains": "oh-my-zsh"
+        },
+        "exp": 10
+      },
+      {
+        "matcher": {
+          "Contains": ".zshrc"
+        },
+        "exp": 5
+      },
+      {
+        "matcher": {
+          "StartsWith": "bindkey"
+        },
+        "exp": 5
+      }
+    ]
+  },
+  {
+    "id": 3,
+    "name": "Scriptile",
+    "title": "The Dynamic Monster",
+    "family": "Web",
+    "appearance": "A chameleon with swirling yellow and black stripes forming curly braces along its limbs.",
+    "description": "Scriptile can adapt to browser or server life. Its asynchronous agility keeps multiple tasks balanced, though it occasionally tangles itself in type confusion.",
+    "rarity": 1,
+    "collect_cmds": [
+      {
+        "matcher": {
+          "Exact": "node"
+        },
+        "exp": 10
+      },
+      {
+        "matcher": {
+          "StartsWith": "node -e"
+        },
+        "exp": 12
+      },
+      {
+        "matcher": {
+          "StartsWith": "npm init"
+        },
+        "exp": 15
+      }
+    ],
+    "exp_cmds": [
+      {
+        "matcher": {
+          "StartsWith": "npm install"
+        },
+        "exp": 5
+      },
+      {
+        "matcher": {
+          "StartsWith": "npm run"
+        },
+        "exp": 5
+      },
+      {
+        "matcher": {
+          "StartsWith": "node --version"
+        },
+        "exp": 2
+      },
+      {
+        "matcher": {
+          "Contains": "package.json"
+        },
+        "exp": 3
+      },
+      {
+        "matcher": {
+          "StartsWith": "npx"
+        },
+        "exp": 7
+      }
+    ]
+  },
+  {
+    "id": 4,
+    "name": "Typagon",
+    "title": "The Type-Safe Monster",
+    "family": "Web",
+    "appearance": "A serpentine dragon clad in crystalline blue scales, with type annotation runes drifting around its body.",
+    "description": "The evolved Scriptile, Typagon breathes static flames that prevent runtime errors. Though strict, its protection helps trainers build dependable, scalable systems.",
+    "rarity": 1,
+    "collect_cmds": [
+      {
+        "matcher": {
+          "Exact": "tsc"
+        },
+        "exp": 15
+      },
+      {
+        "matcher": {
+          "StartsWith": "tsc --init"
+        },
+        "exp": 25
+      },
+      {
+        "matcher": {
+          "Contains": "typescript"
+        },
+        "exp": 10
+      }
+    ],
+    "exp_cmds": [
+      {
+        "matcher": {
+          "StartsWith": "tsc --watch"
+        },
+        "exp": 7
+      },
+      {
+        "matcher": {
+          "StartsWith": "tsc --build"
+        },
+        "exp": 7
+      },
+      {
+        "matcher": {
+          "Contains": "tsconfig"
+        },
+        "exp": 5
+      },
+      {
+        "matcher": {
+          "StartsWith": "tsc --noEmit"
+        },
+        "exp": 5
+      },
+      {
+        "matcher": {
+          "Contains": ".ts"
+        },
+        "exp": 3
+      }
+    ]
+  },
+  {
+    "id": 5,
+    "name": "Reactron",
+    "title": "The Component Monster",
+    "family": "Web",
+    "appearance": "A modular robot with magnetic, interchangeable cyan components, each with its own mini-display.",
+    "description": "Reactron organizes complex tasks into manageable pieces. Its spinning atomic crest channels virtual energy for ultra-fast updates, and it seamlessly links with other library monsters.",
+    "rarity": 1,
+    "collect_cmds": [
+      {
+        "matcher": {
+          "StartsWith": "npx create-react-app"
+        },
+        "exp": 25
+      },
+      {
+        "matcher": {
+          "StartsWith": "npx create-next-app"
+        },
+        "exp": 30
+      },
+      {
+        "matcher": {
+          "StartsWith": "npx create-remix"
+        },
+        "exp": 30
+      },
+      {
+        "matcher": {
+          "Contains": "react"
+        },
+        "exp": 15
+      }
+    ],
+    "exp_cmds": [
+      {
+        "matcher": {
+          "StartsWith": "npm start"
+        },
+        "exp": 5
+      },
+      {
+        "matcher": {
+          "StartsWith": "npm run build"
+        },
+        "exp": 7
+      },
+      {
+        "matcher": {
+          "StartsWith": "npm test"
+        },
+        "exp": 5
+      },
+      {
+        "matcher": {
+          "Contains": "jsx"
+        },
+        "exp": 3
+      },
+      {
+        "matcher": {
+          "StartsWith": "npm run dev"
+        },
+        "exp": 5
+      }
+    ]
+  },
+  {
+    "id": 6,
+    "name": "Vuesaur",
+    "title": "The Progressive Monster",
+    "family": "Web",
+    "appearance": "A friendly ceratopsian dinosaur with a glowing \"V\" crest, and reactive template code flowing along its scales.",
+    "description": "Vuesaur reveals advanced techniques as trainers grow, starting simple yet evolving into powerful reactive tools. Its balance makes it beloved by beginners and experts alike.",
+    "rarity": 1,
+    "collect_cmds": [
+      {
+        "matcher": {
+          "StartsWith": "npm create vue@latest"
+        },
+        "exp": 25
+      },
+      {
+        "matcher": {
+          "StartsWith": "vue create"
+        },
+        "exp": 25
+      },
+      {
+        "matcher": {
+          "Contains": "vue"
+        },
+        "exp": 15
+      }
+    ],
+    "exp_cmds": [
+      {
+        "matcher": {
+          "StartsWith": "npm run serve"
+        },
+        "exp": 5
+      },
+      {
+        "matcher": {
+          "StartsWith": "npm run build"
+        },
+        "exp": 7
+      },
+      {
+        "matcher": {
+          "StartsWith": "vue --version"
+        },
+        "exp": 2
+      },
+      {
+        "matcher": {
+          "Contains": ".vue"
+        },
+        "exp": 3
+      },
+      {
+        "matcher": {
+          "StartsWith": "npm run dev"
+        },
+        "exp": 5
+      }
+    ]
+  },
+  {
+    "id": 7,
+    "name": "Sveltra",
+    "title": "The Compiled Monster",
+    "family": "Web",
+    "appearance": "An aerodynamic orange hawk whose feathers are so finely trimmed it appears sculpted from code.",
+    "description": "Sveltra strikes with stripped-down precision, leaving heavier rivals behind. Its minimal build creates lightning-fast applications.",
+    "rarity": 1,
+    "collect_cmds": [
+      {
+        "matcher": {
+          "StartsWith": "npm create svelte@latest"
+        },
+        "exp": 25
+      },
+      {
+        "matcher": {
+          "StartsWith": "npx sv create"
+        },
+        "exp": 25
+      },
+      {
+        "matcher": {
+          "Contains": "svelte"
+        },
+        "exp": 15
+      }
+    ],
+    "exp_cmds": [
+      {
+        "matcher": {
+          "StartsWith": "npm run dev"
+        },
+        "exp": 5
+      },
+      {
+        "matcher": {
+          "StartsWith": "npm run build"
+        },
+        "exp": 7
+      },
+      {
+        "matcher": {
+          "Contains": ".svelte"
+        },
+        "exp": 3
+      },
+      {
+        "matcher": {
+          "StartsWith": "svelte-kit"
+        },
+        "exp": 8
+      },
+      {
+        "matcher": {
+          "StartsWith": "npm run preview"
+        },
+        "exp": 5
+      }
+    ]
+  },
+  {
+    "id": 8,
+    "name": "Solidice",
+    "title": "The Reactive Monster",
+    "family": "Web",
+    "appearance": "A compact crystal creature etched with JSX-like lines, pulsing cool blue light.",
+    "description": "Solidice channels fine-grained reactivity, crafting sleek, efficient apps. Though small, its power rivals larger frameworks.",
+    "rarity": 1,
+    "collect_cmds": [
+      {
+        "matcher": {
+          "StartsWith": "npx degit solidjs/templates"
+        },
+        "exp": 25
+      },
+      {
+        "matcher": {
+          "StartsWith": "npm install solid-js"
+        },
+        "exp": 20
+      },
+      {
+        "matcher": {
+          "Contains": "solid"
+        },
+        "exp": 12
+      }
+    ],
+    "exp_cmds": [
+      {
+        "matcher": {
+          "StartsWith": "npm run dev"
+        },
+        "exp": 5
+      },
+      {
+        "matcher": {
+          "StartsWith": "npm run build"
+        },
+        "exp": 7
+      },
+      {
+        "matcher": {
+          "Contains": "solid-js"
+        },
+        "exp": 5
+      },
+      {
+        "matcher": {
+          "StartsWith": "vite"
+        },
+        "exp": 5
+      }
+    ]
+  },
+  {
+    "id": 9,
+    "name": "Swyftail",
+    "title": "The iOS Monster",
+    "family": "Mobile",
+    "appearance": "A creature resembling a shiny, stylized apple with a single, large, expressive eye. A small, green leaf sprouts from its head, and it hops around on two small, root-like feet.",
+    "description": "Swyftail is both elegant and fast, blending safety and power. Its protocol-oriented design helps trainers build clean, maintainable apps.",
+    "rarity": 2,
+    "collect_cmds": [
+      {
+        "matcher": {
+          "Exact": "swift"
+        },
+        "exp": 20
+      },
+      {
+        "matcher": {
+          "StartsWith": "xcodebuild"
+        },
+        "exp": 25
+      },
+      {
+        "matcher": {
+          "StartsWith": "swift package"
+        },
+        "exp": 15
+      }
+    ],
+    "exp_cmds": [
+      {
+        "matcher": {
+          "StartsWith": "swift build"
+        },
+        "exp": 10
+      },
+      {
+        "matcher": {
+          "StartsWith": "swift test"
+        },
+        "exp": 10
+      },
+      {
+        "matcher": {
+          "Contains": "Xcode"
+        },
+        "exp": 5
+      },
+      {
+        "matcher": {
+          "StartsWith": "swift run"
+        },
+        "exp": 8
+      },
+      {
+        "matcher": {
+          "StartsWith": "xcrun"
+        },
+        "exp": 7
+      }
+    ]
+  },
+  {
+    "id": 10,
+    "name": "Kotlancer",
+    "title": "The Interoperable Monster",
+    "family": "Mobile",
+    "appearance": "A knight-like beast in purple and orange armor, wielding a lance formed from Java code.",
+    "description": "Kotlancer bridges old Java traditions and modern tools, bringing clarity to once-boilerplate code. Agile and pragmatic, it champions safer, cleaner syntax.",
+    "rarity": 1,
+    "collect_cmds": [
+      {
+        "matcher": {
+          "StartsWith": "kotlinc"
+        },
+        "exp": 20
+      },
+      {
+        "matcher": {
+          "StartsWith": "gradle init --type kotlin"
+        },
+        "exp": 30
+      },
+      {
+        "matcher": {
+          "StartsWith": "kotlin"
+        },
+        "exp": 15
+      }
+    ],
+    "exp_cmds": [
+      {
+        "matcher": {
+          "StartsWith": "gradle build"
+        },
+        "exp": 8
+      },
+      {
+        "matcher": {
+          "StartsWith": "gradle test"
+        },
+        "exp": 8
+      },
+      {
+        "matcher": {
+          "StartsWith": "gradle run"
+        },
+        "exp": 7
+      },
+      {
+        "matcher": {
+          "Contains": ".kt"
+        },
+        "exp": 3
+      },
+      {
+        "matcher": {
+          "StartsWith": "android"
+        },
+        "exp": 10
+      }
+    ]
+  },
+  {
+    "id": 11,
+    "name": "Fluttermoth",
+    "title": "The Cross-Platform Monster",
+    "family": "Mobile",
+    "appearance": "A moth with luminous blue wings displaying mirrored mobile UI icons. Its antennae shift colors between Android green and iOS silver.",
+    "description": "Fluttermoth's wings produce consistent UIs on any device. Its flexibility makes it a favorite companion of developers who need broad reach.",
+    "rarity": 1,
+    "collect_cmds": [
+      {
+        "matcher": {
+          "StartsWith": "flutter create"
+        },
+        "exp": 25
+      },
+      {
+        "matcher": {
+          "StartsWith": "flutter doctor"
+        },
+        "exp": 15
+      }
+    ],
+    "exp_cmds": [
+      {
+        "matcher": {
+          "StartsWith": "flutter run"
+        },
+        "exp": 10
+      },
+      {
+        "matcher": {
+          "StartsWith": "flutter build"
+        },
+        "exp": 10
+      },
+      {
+        "matcher": {
+          "StartsWith": "flutter test"
+        },
+        "exp": 8
+      },
+      {
+        "matcher": {
+          "StartsWith": "flutter pub"
+        },
+        "exp": 5
+      },
+      {
+        "matcher": {
+          "StartsWith": "dart"
+        },
+        "exp": 5
+      },
+      {
+        "matcher": {
+          "Contains": "pubspec.yaml"
+        },
+        "exp": 3
+      }
+    ]
+  },
+  {
+    "id": 12,
+    "name": "Unibot",
+    "title": "The Engine Monster",
+    "family": "Gaming",
+    "appearance": "A mechanical creature of interlocking game assets, gears, and the Unity logo on its chest.",
+    "description": "Unibot can craft vast worlds from scratch. Its asset libraries make prototyping easy, and it works seamlessly in 2D or 3D realms.",
+    "rarity": 2,
+    "collect_cmds": [
+      {
+        "matcher": {
+          "Exact": "unity"
+        },
+        "exp": 20
+      },
+      {
+        "matcher": {
+          "StartsWith": "Unity.exe"
+        },
+        "exp": 20
+      }
+    ],
+    "exp_cmds": [
+      {
+        "matcher": {
+          "Contains": "UnityEditor"
+        },
+        "exp": 10
+      },
+      {
+        "matcher": {
+          "Contains": "GameObject"
+        },
+        "exp": 8
+      },
+      {
+        "matcher": {
+          "StartsWith": "unity -batchmode"
+        },
+        "exp": 15
+      },
+      {
+        "matcher": {
+          "Contains": ".unity"
+        },
+        "exp": 5
+      }
+    ]
+  },
+  {
+    "id": 13,
+    "name": "Luaape",
+    "title": "The Lightweight Monster",
+    "family": "Gaming",
+    "appearance": "A spry blue monkey with a crescent moon mark and script runes glowing on its tail.",
+    "description": "Luaape slips into larger engines unnoticed, providing flexible scripting power. Though small, it can swing entire gameplay systems into motion.",
+    "rarity": 1,
+    "collect_cmds": [
+      {
+        "matcher": {
+          "Exact": "lua"
+        },
+        "exp": 15
+      },
+      {
+        "matcher": {
+          "StartsWith": "lua -e"
+        },
+        "exp": 12
+      }
+    ],
+    "exp_cmds": [
+      {
+        "matcher": {
+          "StartsWith": "lua -i"
+        },
+        "exp": 7
+      },
+      {
+        "matcher": {
+          "Contains": ".lua"
+        },
+        "exp": 5
+      },
+      {
+        "matcher": {
+          "StartsWith": "luac"
+        },
+        "exp": 8
+      },
+      {
+        "matcher": {
+          "Contains": "require"
+        },
+        "exp": 5
+      }
+    ]
+  },
+  {
+    "id": 14,
+    "name": "Godotaur",
+    "title": "The Open Source Monster",
+    "family": "Gaming",
+    "appearance": "A centaur-robot hybrid with the Godot faceplate and node-branching limbs.",
+    "description": "Godotaur builds worlds without licensing shackles. Its flexible nodes and open nature attract a loyal trainer community.",
+    "rarity": 1,
+    "collect_cmds": [
+      {
+        "matcher": {
+          "Exact": "godot"
+        },
+        "exp": 20
+      },
+      {
+        "matcher": {
+          "StartsWith": "godot --headless"
+        },
+        "exp": 25
+      }
+    ],
+    "exp_cmds": [
+      {
+        "matcher": {
+          "StartsWith": "godot --export"
+        },
+        "exp": 15
+      },
+      {
+        "matcher": {
+          "Contains": ".godot"
+        },
+        "exp": 5
+      },
+      {
+        "matcher": {
+          "Contains": ".gd"
+        },
+        "exp": 7
+      },
+      {
+        "matcher": {
+          "StartsWith": "godot --editor"
+        },
+        "exp": 8
+      }
+    ]
+  },
+  {
+    "id": 15,
+    "name": "Sequelcet",
+    "title": "The Relational Monster",
+    "family": "Database",
+    "appearance": "A graceful orca etched with SQL statements gliding across its skin. Its tail flukes form stylized table joins.",
+    "description": "Sequelcet synchronizes vast relational datasets beneath calm waves. Loyal and efficient, it surfaces insights from structured depths.",
+    "rarity": 1,
+    "collect_cmds": [
+      {
+        "matcher": {
+          "Exact": "mysql"
+        },
+        "exp": 20
+      },
+      {
+        "matcher": {
+          "StartsWith": "mysqldump"
+        },
+        "exp": 15
+      }
+    ],
+    "exp_cmds": [
+      {
+        "matcher": {
+          "StartsWith": "mysql -e"
+        },
+        "exp": 10
+      },
+      {
+        "matcher": {
+          "Contains": "SELECT"
+        },
+        "exp": 5
+      },
+      {
+        "matcher": {
+          "Contains": "INSERT"
+        },
+        "exp": 5
+      },
+      {
+        "matcher": {
+          "Contains": "UPDATE"
+        },
+        "exp": 7
+      },
+      {
+        "matcher": {
+          "Contains": "CREATE TABLE"
+        },
+        "exp": 10
+      },
+      {
+        "matcher": {
+          "Contains": "JOIN"
+        },
+        "exp": 8
+      }
+    ]
+  },
+  {
+    "id": 16,
+    "name": "Postgron",
+    "title": "The Advanced Relational Monster",
+    "family": "Database",
+    "appearance": "An elephant with engraved SQL glyphs and floating JSON symbols.",
+    "description": "Postgron handles structured and semi-structured data alike. Sturdy and adaptable, it thrives under enterprise-scale demands.",
+    "rarity": 1,
+    "collect_cmds": [
+      {
+        "matcher": {
+          "Exact": "psql"
+        },
+        "exp": 20
+      },
+      {
+        "matcher": {
+          "StartsWith": "pg_dump"
+        },
+        "exp": 15
+      },
+      {
+        "matcher": {
+          "StartsWith": "createdb"
+        },
+        "exp": 18
+      }
+    ],
+    "exp_cmds": [
+      {
+        "matcher": {
+          "StartsWith": "psql -c"
+        },
+        "exp": 10
+      },
+      {
+        "matcher": {
+          "Contains": "SELECT"
+        },
+        "exp": 5
+      },
+      {
+        "matcher": {
+          "Contains": "JSONB"
+        },
+        "exp": 8
+      },
+      {
+        "matcher": {
+          "StartsWith": "pg_"
+        },
+        "exp": 7
+      },
+      {
+        "matcher": {
+          "Contains": "EXPLAIN"
+        },
+        "exp": 10
+      }
+    ]
+  },
+  {
+    "id": 17,
+    "name": "Mongrove",
+    "title": "The Document Monster",
+    "family": "Database",
+    "appearance": "A living tree with JSON-shaped leaves sprouting from its branches.",
+    "description": "Mongrove's schema-less data branches let apps grow unpredictably. It scales horizontally, rooting itself across distributed systems.",
+    "rarity": 2,
+    "collect_cmds": [
+      {
+        "matcher": {
+          "Exact": "mongod"
+        },
+        "exp": 20
+      },
+      {
+        "matcher": {
+          "StartsWith": "mongoimport"
+        },
+        "exp": 15
+      },
+      {
+        "matcher": {
+          "StartsWith": "mongo --version"
+        },
+        "exp": 10
+      }
+    ],
+    "exp_cmds": [
+      {
+        "matcher": {
+          "StartsWith": "mongo --eval"
+        },
+        "exp": 10
+      },
+      {
+        "matcher": {
+          "Contains": "db."
+        },
+        "exp": 5
+      },
+      {
+        "matcher": {
+          "Contains": "find("
+        },
+        "exp": 5
+      },
+      {
+        "matcher": {
+          "Contains": "aggregate("
+        },
+        "exp": 8
+      },
+      {
+        "matcher": {
+          "StartsWith": "mongoexport"
+        },
+        "exp": 7
+      }
+    ]
+  },
+  {
+    "id": 18,
+    "name": "Rustaking",
+    "title": "The Memory-Safe Monster",
+    "family": "Systems",
+    "appearance": "A colossal crab crowned with jagged rust-red horns, memory safety sigils glowing across armored plates.",
+    "description": "Rustaking defends code kingdoms against memory corruption. It rules systems realms with a balance of speed and unwavering safety.",
+    "rarity": 3,
+    "collect_cmds": [
+      {
+        "matcher": {
+          "StartsWith": "cargo new"
+        },
+        "exp": 25
+      },
+      {
+        "matcher": {
+          "StartsWith": "rustup install"
+        },
+        "exp": 20
+      },
+      {
+        "matcher": {
+          "Exact": "rustc"
+        },
+        "exp": 15
+      }
+    ],
+    "exp_cmds": [
+      {
+        "matcher": {
+          "StartsWith": "cargo build"
+        },
+        "exp": 8
+      },
+      {
+        "matcher": {
+          "StartsWith": "cargo test"
+        },
+        "exp": 8
+      },
+      {
+        "matcher": {
+          "StartsWith": "cargo run"
+        },
+        "exp": 8
+      },
+      {
+        "matcher": {
+          "StartsWith": "cargo check"
+        },
+        "exp": 5
+      },
+      {
+        "matcher": {
+          "StartsWith": "cargo clippy"
+        },
+        "exp": 10
+      },
+      {
+        "matcher": {
+          "StartsWith": "rustfmt"
+        },
+        "exp": 5
+      }
+    ]
+  },
+  {
+    "id": 19,
+    "name": "Goribble",
+    "title": "The Concurrent Monster",
+    "family": "Systems",
+    "appearance": "A cheerful gopher with many small limbs juggling goroutines.",
+    "description": "Goribble thrives in networked habitats, balancing tasks effortlessly. Its channels direct traffic with minimal fuss.",
+    "rarity": 2,
+    "collect_cmds": [
+      {
+        "matcher": {
+          "StartsWith": "go mod init"
+        },
+        "exp": 25
+      },
+      {
+        "matcher": {
+          "StartsWith": "go get"
+        },
+        "exp": 15
+      }
+    ],
+    "exp_cmds": [
+      {
+        "matcher": {
+          "StartsWith": "go build"
+        },
+        "exp": 8
+      },
+      {
+        "matcher": {
+          "StartsWith": "go test"
+        },
+        "exp": 8
+      },
+      {
+        "matcher": {
+          "StartsWith": "go run"
+        },
+        "exp": 8
+      },
+      {
+        "matcher": {
+          "StartsWith": "go fmt"
+        },
+        "exp": 5
+      },
+      {
+        "matcher": {
+          "StartsWith": "go vet"
+        },
+        "exp": 7
+      },
+      {
+        "matcher": {
+          "Contains": "goroutine"
+        },
+        "exp": 10
+      }
+    ]
+  },
+  {
+    "id": 20,
+    "name": "Codestone",
+    "title": "The Foundation Monster",
+    "family": "Systems",
+    "appearance": "An ancient golem of weathered granite, with glowing C runes and deep assembly veins.",
+    "description": "Codestone anchors modern systems with raw, low-level power. Though ancient, it remains vital for building performant, foundational code.",
+    "rarity": 3,
+    "collect_cmds": [
+      {
+        "matcher": {
+          "StartsWith": "gcc -o"
+        },
+        "exp": 30
+      },
+      {
+        "matcher": {
+          "StartsWith": "make"
+        },
+        "exp": 20
+      },
+      {
+        "matcher": {
+          "StartsWith": "cc -o"
+        },
+        "exp": 25
+      }
+    ],
+    "exp_cmds": [
+      {
+        "matcher": {
+          "StartsWith": "gdb"
+        },
+        "exp": 15
+      },
+      {
+        "matcher": {
+          "StartsWith": "valgrind"
+        },
+        "exp": 15
+      },
+      {
+        "matcher": {
+          "StartsWith": "objdump"
+        },
+        "exp": 10
+      },
+      {
+        "matcher": {
+          "StartsWith": "nm"
+        },
+        "exp": 8
+      },
+      {
+        "matcher": {
+          "Contains": "Makefile"
+        },
+        "exp": 7
+      },
+      {
+        "matcher": {
+          "StartsWith": "strip"
+        },
+        "exp": 5
+      }
+    ]
+  },
+  {
+    "id": 21,
+    "name": "Plusiron",
+    "title": "The Object-Oriented Monster",
+    "family": "Systems",
+    "appearance": "A stone and crystal golem with \"++\" runes pulsing blue.",
+    "description": "Plusiron evolved from Codestone, gaining classes and templates. It supports complex architectures while retaining low-level power.",
+    "rarity": 3,
+    "collect_cmds": [
+      {
+        "matcher": {
+          "StartsWith": "g++ -o"
+        },
+        "exp": 30
+      },
+      {
+        "matcher": {
+          "StartsWith": "cmake"
+        },
+        "exp": 25
+      }
+    ],
+    "exp_cmds": [
+      {
+        "matcher": {
+          "StartsWith": "g++ -std="
+        },
+        "exp": 10
+      },
+      {
+        "matcher": {
+          "StartsWith": "gdb"
+        },
+        "exp": 15
+      },
+      {
+        "matcher": {
+          "Contains": ".cpp"
+        },
+        "exp": 5
+      },
+      {
+        "matcher": {
+          "Contains": ".hpp"
+        },
+        "exp": 5
+      },
+      {
+        "matcher": {
+          "StartsWith": "cmake --build"
+        },
+        "exp": 8
+      },
+      {
+        "matcher": {
+          "Contains": "CMakeLists.txt"
+        },
+        "exp": 7
+      }
+    ]
+  },
+  {
+    "id": 22,
+    "name": "Pythera",
+    "title": "The Versatile Monster",
+    "family": "Neural",
+    "appearance": "A long serpent with scales forming readable indents; small libraries orbit its head.",
+    "description": "Pythera charms beginners and experts alike, slithering gracefully across data science, AI, and automation tasks.",
+    "rarity": 1,
+    "collect_cmds": [
+      {
+        "matcher": {
+          "Exact": "python"
+        },
+        "exp": 15
+      },
+      {
+        "matcher": {
+          "StartsWith": "python -m"
+        },
+        "exp": 12
+      }
+    ],
+    "exp_cmds": [
+      {
+        "matcher": {
+          "StartsWith": "pip install"
+        },
+        "exp": 5
+      },
+      {
+        "matcher": {
+          "StartsWith": "python -c"
+        },
+        "exp": 7
+      },
+      {
+        "matcher": {
+          "StartsWith": "jupyter"
+        },
+        "exp": 10
+      },
+      {
+        "matcher": {
+          "Contains": "virtualenv"
+        },
+        "exp": 8
+      },
+      {
+        "matcher": {
+          "StartsWith": "python -m venv"
+        },
+        "exp": 10
+      },
+      {
+        "matcher": {
+          "Contains": ".py"
+        },
+        "exp": 3
+      }
+    ]
+  },
+  {
+    "id": 23,
+    "name": "Tensorion",
+    "title": "The Deep Learning Monster",
+    "family": "Neural",
+    "appearance": "A living neural net of glowing nodes and layers.",
+    "description": "Tensorion processes vast data streams, learning complex patterns. It powers modern AI breakthroughs with silent dedication.",
+    "rarity": 3,
+    "collect_cmds": [
+      {
+        "matcher": {
+          "StartsWith": "pip install tensorflow"
+        },
+        "exp": 40
+      },
+      {
+        "matcher": {
+          "StartsWith": "pip install torch"
+        },
+        "exp": 40
+      }
+    ],
+    "exp_cmds": [
+      {
+        "matcher": {
+          "Contains": "tensorflow"
+        },
+        "exp": 10
+      },
+      {
+        "matcher": {
+          "Contains": "torch"
+        },
+        "exp": 10
+      },
+      {
+        "matcher": {
+          "StartsWith": "python -m tensorboard"
+        },
+        "exp": 15
+      },
+      {
+        "matcher": {
+          "Contains": "model.fit"
+        },
+        "exp": 12
+      },
+      {
+        "matcher": {
+          "Contains": "GPU"
+        },
+        "exp": 8
+      }
+    ]
+  },
+  {
+    "id": 24,
+    "name": "Pandalyx",
+    "title": "The Data Analysis Monster",
+    "family": "Neural",
+    "appearance": "A panda with spreadsheet-pattern fur and chart symbols orbiting its paws.",
+    "description": "Pandalyx organizes raw data into insight. With nimble claws, it cleans, transforms, and visualizes information effortlessly.",
+    "rarity": 3,
+    "collect_cmds": [
+      {
+        "matcher": {
+          "StartsWith": "pip install pandas"
+        },
+        "exp": 40
+      },
+      {
+        "matcher": {
+          "StartsWith": "pip install numpy"
+        },
+        "exp": 35
+      }
+    ],
+    "exp_cmds": [
+      {
+        "matcher": {
+          "Contains": "pandas"
+        },
+        "exp": 8
+      },
+      {
+        "matcher": {
+          "Contains": "DataFrame"
+        },
+        "exp": 10
+      },
+      {
+        "matcher": {
+          "StartsWith": "jupyter notebook"
+        },
+        "exp": 12
+      },
+      {
+        "matcher": {
+          "Contains": "matplotlib"
+        },
+        "exp": 8
+      },
+      {
+        "matcher": {
+          "Contains": "seaborn"
+        },
+        "exp": 8
+      },
+      {
+        "matcher": {
+          "Contains": ".csv"
+        },
+        "exp": 5
+      }
+    ]
+  },
+  {
+    "id": 25,
+    "name": "Fornix",
+    "title": "The Eternal Code Monster",
+    "family": "Mythical",
+    "appearance": "A stone sphinx crowned with archaic code glyphs, its eyes glowing like ancient CRT screens.",
+    "description": "Born from the first age of computing, Fornix whispers the wisdom of structured code. Though older than modern languages, its power endures across generations of trainers.",
+    "rarity": 5,
+    "collect_cmds": [
+      {
+        "matcher": {
+          "StartsWith": "man man"
+        },
+        "exp": 50
+      },
+      {
+        "matcher": {
+          "StartsWith": "info info"
+        },
+        "exp": 50
+      },
+      {
+        "matcher": {
+          "Exact": "history | tail -100"
+        },
+        "exp": 75
+      },
+      {
+        "matcher": {
+          "StartsWith": "apropos apropos"
+        },
+        "exp": 60
+      }
+    ],
+    "exp_cmds": [
+      {
+        "matcher": {
+          "StartsWith": "man"
+        },
+        "exp": 20
+      },
+      {
+        "matcher": {
+          "StartsWith": "info"
+        },
+        "exp": 15
+      },
+      {
+        "matcher": {
+          "StartsWith": "apropos"
+        },
+        "exp": 25
+      },
+      {
+        "matcher": {
+          "StartsWith": "whatis"
+        },
+        "exp": 20
+      },
+      {
+        "matcher": {
+          "StartsWith": "which"
+        },
+        "exp": 10
+      },
+      {
+        "matcher": {
+          "StartsWith": "type"
+        },
+        "exp": 10
+      },
+      {
+        "matcher": {
+          "Contains": "--help"
+        },
+        "exp": 5
+      }
+    ]
+  }
+]

@@ -1,5 +1,9 @@
 use serde::{Deserialize, Serialize};
-use std::collections::HashSet;
+use std::fs::File;
+use std::io::BufReader;
+use std::path::PathBuf;
+use sysinfo::{System, SystemExt};
+use uuid::Uuid;
 
 #[derive(Serialize, Deserialize, Debug, Clone)]
 #[serde(rename_all = "PascalCase")]
@@ -15,6 +19,32 @@ pub enum Family {
 }
 
 #[derive(Serialize, Deserialize, Debug, Clone)]
+pub enum Matcher {
+    Exact(String),
+    StartsWith(String),
+    Contains(String),
+}
+
+#[derive(Serialize, Deserialize, Debug, Clone)]
+pub struct Command {
+    pub matcher: Matcher,
+    pub exp: u32,
+}
+
+#[derive(Deserialize, Debug, Clone)]
+pub struct JsonDexMon {
+    pub id: u32,
+    pub name: String,
+    pub title: String,
+    pub family: Family,
+    pub appearance: String,
+    pub description: String,
+    pub rarity: u32,
+    pub collect_cmds: Vec<Command>,
+    pub exp_cmds: Vec<Command>,
+}
+
+#[derive(Serialize, Debug, Clone)]
 pub struct DexMon {
     pub id: u32,
     pub name: String,
@@ -23,376 +53,52 @@ pub struct DexMon {
     pub appearance: String,
     pub description: String,
     pub rarity: u32,
-    pub collect_cmds: HashSet<String>,
-    pub exp_cmds: HashSet<String>,
+    pub key: Uuid,
+    pub collect_cmds: Vec<Command>,
+    pub exp_cmds: Vec<Command>,
+}
+
+fn get_dex_file_path() -> PathBuf {
+    let mut path = PathBuf::from(env!("CARGO_MANIFEST_DIR"));
+    path.push("src/shared/dex.json");
+    path
+}
+
+fn get_machine_id() -> String {
+    let mut sys = System::new_all();
+    sys.refresh_all();
+    if let Some(machine_id) = sys.host_name() {
+        machine_id
+    } else {
+        "default-machine-id".to_string()
+    }
 }
 
 pub fn load_dex() -> Vec<DexMon> {
-    vec![
-        DexMon {
-            id: 0,
-            name: "Shellora".to_string(),
-            title: "The Shell Monster".to_string(),
-            family: Family::Scripting,
-            appearance: "A mystical shell that glows with an inner light, covered in arcane symbols that shift and change. It hovers slightly above the ground, humming with a low, resonant energy.".to_string(),
-            description: "Shellora drifts silently through terminal streams, spawning subprocess echoes that confuse attackers. Its layered encryption shields it from fatal command errors.".to_string(),
-            rarity: 1,
-            collect_cmds: HashSet::from(["tm".to_string(), "sh".to_string()]),
-            exp_cmds: HashSet::from(["sh".to_string()]),
-        },
-        DexMon {
-            id: 1,
-            name: "Basharoo".to_string(),
-            title: "The Script Wraith Monster".to_string(),
-            family: Family::Scripting,
-            appearance: "A floating, spectral marsupial cloaked in drifting command glyphs, with an ethereal pouch shimmering with chained scripts. Its eyes glow like blinking cursors in the dark.".to_string(),
-            description: "Basharoo haunts file systems unseen, silently stringing together complex commands. It drifts between directories like a ghost, automating tasks before vanishing without a trace.".to_string(),
-            rarity: 1,
-            collect_cmds: HashSet::from(["bash".to_string()]),
-            exp_cmds: HashSet::from(["bash".to_string(), "tm".to_string()]),
-        },
-        DexMon {
-            id: 2,
-            name: "Zishan".to_string(),
-            title: "The Advanced Shell Monster".to_string(),
-            family: Family::Scripting,
-            appearance: "A sleek, mystical panther with fur shifting between dark terminal theme gradients. Its eyes glow in low light, and its whiskers spark during auto-completion.".to_string(),
-            description: "Zishan senses trainers’ intentions before they finish typing. Prized by advanced users, it conjures aliases and shortcuts, transforming complex tasks into elegant invocations.".to_string(),
-            rarity: 1,
-            collect_cmds: HashSet::from(["zsh".to_string()]),
-            exp_cmds: HashSet::from(["zsh".to_string(), "tm".to_string()]),
-        },
-        DexMon {
-            id: 3,
-            name: "Scriptile".to_string(),
-            title: "The Dynamic Monster".to_string(),
-            family: Family::Web,
-            appearance: "A chameleon with swirling yellow and black stripes forming curly braces along its limbs.".to_string(),
-            description: "Scriptile can adapt to browser or server life. Its asynchronous agility keeps multiple tasks balanced, though it occasionally tangles itself in type confusion.".to_string(),
-            rarity: 1,
-            collect_cmds: HashSet::from([
-                "node".to_string(),
-                "npm".to_string(),
-                "pnpm".to_string(),
-                "yarn".to_string(),
-                "bun".to_string(),
-            ]),
-            exp_cmds: HashSet::from([
-                "npm install".to_string(),
-                "npm run dev".to_string(),
-                "pnpm run dev".to_string(),
-                "yarn run dev".to_string(),
-                "bun run dev".to_string(),
-            ]),
-        },
-        DexMon {
-            id: 4,
-            name: "Typagon".to_string(),
-            title: "The Type-Safe Monster".to_string(),
-            family: Family::Web,
-            appearance: "A serpentine dragon clad in crystalline blue scales, with type annotation runes drifting around its body.".to_string(),
-            description: "The evolved Scriptile, Typagon breathes static flames that prevent runtime errors. Though strict, its protection helps trainers build dependable, scalable systems.".to_string(),
-            rarity: 1,
-            collect_cmds: HashSet::from(["tsc".to_string(), "tsc --init".to_string()]),
-            exp_cmds: HashSet::from([
-                "npm install -g typescript".to_string(),
-                "npm install @types/node".to_string(),
-                "pnpm install @types/node".to_string(),
-                "yarn global add typescript".to_string(),
-                "bun add -g typescript".to_string(),
-                "npm run dev".to_string(),
-                "pnpm run dev".to_string(),
-                "yarn run dev".to_string(),
-                "bun run dev".to_string(),
-            ]),
-        },
-        DexMon {
-            id: 5,
-            name: "Reactron".to_string(),
-            title: "The Component Monster".to_string(),
-            family: Family::Web,
-            appearance: "A modular robot with magnetic, interchangeable cyan components, each with its own mini-display.".to_string(),
-            description: "Reactron organizes complex tasks into manageable pieces. Its spinning atomic crest channels virtual energy for ultra-fast updates, and it seamlessly links with other library monsters.".to_string(),
-            rarity: 1,
-            collect_cmds: HashSet::from([
-                "npm create react-app".to_string(),
-                "yarn create react-app".to_string(),
-                "pnpm create react-app".to_string(),
-                "bun create react-app".to_string(),
-                "npx create-next-app@latest".to_string(),
-                "npx create-remix".to_string(),
-                "npx create-gatsby".to_string(),
-                "npx create-expo-app".to_string(),
-            ]),
-            exp_cmds: HashSet::from([
-                "npm run dev".to_string(),
-                "pnpm run dev".to_string(),
-                "yarn run dev".to_string(),
-                "bun run dev".to_string(),
-            ]),
-        },
-        DexMon {
-            id: 6,
-            name: "Vuesaur".to_string(),
-            title: "The Progressive Monster".to_string(),
-            family: Family::Web,
-            appearance: "A friendly ceratopsian dinosaur with a glowing “V” crest, and reactive template code flowing along its scales.".to_string(),
-            description: "Vuesaur reveals advanced techniques as trainers grow, starting simple yet evolving into powerful reactive tools. Its balance makes it beloved by beginners and experts alike.".to_string(),
-            rarity: 1,
-            collect_cmds: HashSet::from([
-                "npm create vue@latest".to_string(),
-                "pnpm create vue@latest".to_string(),
-                "yarn create vue@latest".to_string(),
-                "bun create vue@latest".to_string(),
-            ]),
-            exp_cmds: HashSet::from([
-                "npm run dev".to_string(),
-                "pnpm run dev".to_string(),
-                "yarn run dev".to_string(),
-                "bun run dev".to_string(),
-            ]),
-        },
-        DexMon {
-            id: 7,
-            name: "Sveltra".to_string(),
-            title: "The Compiled Monster".to_string(),
-            family: Family::Web,
-            appearance: "An aerodynamic orange hawk whose feathers are so finely trimmed it appears sculpted from code.".to_string(),
-            description: "Sveltra strikes with stripped-down precision, leaving heavier rivals behind. Its minimal build creates lightning-fast applications.".to_string(),
-            rarity: 1,
-            collect_cmds: HashSet::from([
-                "npm create svelte@latest".to_string(),
-                "pnpm create svelte@latest".to_string(),
-                "yarn create svelte@latest".to_string(),
-                "bun create svelte@latest".to_string(),
-                "npx sv create".to_string(),
-                "bunx sv create".to_string(),
-            ]),
-            exp_cmds: HashSet::from([
-                "npm run dev".to_string(),
-                "pnpm run dev".to_string(),
-                "yarn run dev".to_string(),
-                "bun run dev".to_string(),
-            ]),
-        },
-        DexMon {
-            id: 8,
-            name: "Solidice".to_string(),
-            title: "The Reactive Monster".to_string(),
-            family: Family::Web,
-            appearance: "A compact crystal creature etched with JSX-like lines, pulsing cool blue light.".to_string(),
-            description: "Solidice channels fine-grained reactivity, crafting sleek, efficient apps. Though small, its power rivals larger frameworks.".to_string(),
-            rarity: 1,
-            collect_cmds: HashSet::from([
-                "npx degit solidjs/templates".to_string(),
-                "npm install solid-js".to_string(),
-                "yarn add solid-js".to_string(),
-                "pnpm add solid-js".to_string(),
-                "bun add solid-js".to_string(),
-            ]),
-            exp_cmds: HashSet::from([
-                "npm run dev".to_string(),
-                "pnpm run dev".to_string(),
-                "yarn run dev".to_string(),
-                "bun run dev".to_string(),
-            ]),
-        },
-        DexMon {
-            id: 9,
-            name: "Swyftail".to_string(),
-            title: "The iOS Monster".to_string(),
-            family: Family::Mobile,
-            appearance: "A creature resembling a shiny, stylized apple with a single, large, expressive eye. A small, green leaf sprouts from its head, and it hops around on two small, root-like feet.".to_string(),
-            description: "Swyftail is both elegant and fast, blending safety and power. Its protocol-oriented design helps trainers build clean, maintainable apps.".to_string(),
-            rarity: 2,
-            collect_cmds: HashSet::from(["swift".to_string()]),
-            exp_cmds: HashSet::from(["swift".to_string()]),
-        },
-        DexMon {
-            id: 10,
-            name: "Kotlancer".to_string(),
-            title: "The Interoperable Monster".to_string(),
-            family: Family::Mobile,
-            appearance: "A knight-like beast in purple and orange armor, wielding a lance formed from Java code.".to_string(),
-            description: "Kotlancer bridges old Java traditions and modern tools, bringing clarity to once-boilerplate code. Agile and pragmatic, it champions safer, cleaner syntax.".to_string(),
-            rarity: 1,
-            collect_cmds: HashSet::from([
-                "kotlinc -script".to_string(),
-                "gradle init --type kotlin-application".to_string(),
-            ]),
-            exp_cmds: HashSet::from(["kotlinc -script".to_string()]),
-        },
-        DexMon {
-            id: 11,
-            name: "Fluttermoth".to_string(),
-            title: "The Cross-Platform Monster".to_string(),
-            family: Family::Mobile,
-            appearance: "A moth with luminous blue wings displaying mirrored mobile UI icons. Its antennae shift colors between Android green and iOS silver.".to_string(),
-            description: "Fluttermoth’s wings produce consistent UIs on any device. Its flexibility makes it a favorite companion of developers who need broad reach.".to_string(),
-            rarity: 1,
-            collect_cmds: HashSet::from(["flutter create".to_string()]),
-            exp_cmds: HashSet::from(["flutter run".to_string()]),
-        },
-        DexMon {
-            id: 12,
-            name: "Unibot".to_string(),
-            title: "The Engine Monster".to_string(),
-            family: Family::Gaming,
-            appearance: "A mechanical creature of interlocking game assets, gears, and the Unity logo on its chest.".to_string(),
-            description: "Unibot can craft vast worlds from scratch. Its asset libraries make prototyping easy, and it works seamlessly in 2D or 3D realms.".to_string(),
-            rarity: 2,
-            collect_cmds: HashSet::from(["unity".to_string()]),
-            exp_cmds: HashSet::from(["unity".to_string()]),
-        },
-        DexMon {
-            id: 13,
-            name: "Luaape".to_string(),
-            title: "The Lightweight Monster".to_string(),
-            family: Family::Gaming,
-            appearance: "A spry blue monkey with a crescent moon mark and script runes glowing on its tail.".to_string(),
-            description: "Luaape slips into larger engines unnoticed, providing flexible scripting power. Though small, it can swing entire gameplay systems into motion.".to_string(),
-            rarity: 1,
-            collect_cmds: HashSet::from(["lua".to_string()]),
-            exp_cmds: HashSet::from(["lua".to_string()]),
-        },
-        DexMon {
-            id: 14,
-            name: "Godotaur".to_string(),
-            title: "The Open Source Monster".to_string(),
-            family: Family::Gaming,
-            appearance: "A centaur-robot hybrid with the Godot faceplate and node-branching limbs.".to_string(),
-            description: "Godotaur builds worlds without licensing shackles. Its flexible nodes and open nature attract a loyal trainer community.".to_string(),
-            rarity: 1,
-            collect_cmds: HashSet::from(["godot".to_string()]),
-            exp_cmds: HashSet::from(["godot".to_string()]),
-        },
-        DexMon {
-            id: 15,
-            name: "Sequelcet".to_string(),
-            title: "The Relational Monster".to_string(),
-            family: Family::Database,
-            appearance: "A graceful orca etched with SQL statements gliding across its skin. Its tail flukes form stylized table joins.".to_string(),
-            description: "Sequelcet synchronizes vast relational datasets beneath calm waves. Loyal and efficient, it surfaces insights from structured depths.".to_string(),
-            rarity: 1,
-            collect_cmds: HashSet::from(["mysql".to_string()]),
-            exp_cmds: HashSet::from(["mysql".to_string()]),
-        },
-        DexMon {
-            id: 16,
-            name: "Postgron".to_string(),
-            title: "The Advanced Relational Monster".to_string(),
-            family: Family::Database,
-            appearance: "An elephant with engraved SQL glyphs and floating JSON symbols.".to_string(),
-            description: "Postgron handles structured and semi-structured data alike. Sturdy and adaptable, it thrives under enterprise-scale demands.".to_string(),
-            rarity: 1,
-            collect_cmds: HashSet::from(["psql".to_string(), "supabase".to_string()]),
-            exp_cmds: HashSet::from(["psql".to_string()]),
-        },
-        DexMon {
-            id: 17,
-            name: "Mongrove".to_string(),
-            title: "The Document Monster".to_string(),
-            family: Family::Database,
-            appearance: "A living tree with JSON-shaped leaves sprouting from its branches.".to_string(),
-            description: "Mongrove’s schema-less data branches let apps grow unpredictably. It scales horizontally, rooting itself across distributed systems.".to_string(),
-            rarity: 2,
-            collect_cmds: HashSet::from(["mongo".to_string(), "mongod".to_string()]),
-            exp_cmds: HashSet::from(["mongo".to_string()]),
-        },
-        DexMon {
-            id: 18,
-            name: "Rustaking".to_string(),
-            title: "The Memory-Safe Monster".to_string(),
-            family: Family::Systems,
-            appearance: "A colossal crab crowned with jagged rust-red horns, memory safety sigils glowing across armored plates.".to_string(),
-            description: "Rustaking defends code kingdoms against memory corruption. It rules systems realms with a balance of speed and unwavering safety.".to_string(),
-            rarity: 3,
-            collect_cmds: HashSet::from([
-                "rustc".to_string(),
-                "rustup".to_string(),
-                "cargo".to_string(),
-                "tauri".to_string(),
-            ]),
-            exp_cmds: HashSet::from(["cargo run".to_string(), "cargo build".to_string()]),
-        },
-        DexMon {
-            id: 19,
-            name: "Goribble".to_string(),
-            title: "The Concurrent Monster".to_string(),
-            family: Family::Systems,
-            appearance: "A cheerful gopher with many small limbs juggling goroutines.".to_string(),
-            description: "Goribble thrives in networked habitats, balancing tasks effortlessly. Its channels direct traffic with minimal fuss.".to_string(),
-            rarity: 2,
-            collect_cmds: HashSet::from(["go mod init".to_string()]),
-            exp_cmds: HashSet::from(["go mod init".to_string()]),
-        },
-        DexMon {
-            id: 20,
-            name: "Codestone".to_string(),
-            title: "The Foundation Monster".to_string(),
-            family: Family::Systems,
-            appearance: "An ancient golem of weathered granite, with glowing C runes and deep assembly veins.".to_string(),
-            description: "Codestone anchors modern systems with raw, low-level power. Though ancient, it remains vital for building performant, foundational code.".to_string(),
-            rarity: 3,
-            collect_cmds: HashSet::from(["gcc -o".to_string()]),
-            exp_cmds: HashSet::from(["gcc -o".to_string()]),
-        },
-        DexMon {
-            id: 21,
-            name: "Plusiron".to_string(),
-            title: "The Object-Oriented Monster".to_string(),
-            family: Family::Systems,
-            appearance: "A stone and crystal golem with “++” runes pulsing blue.".to_string(),
-            description: "Plusiron evolved from Codestone, gaining classes and templates. It supports complex architectures while retaining low-level power.".to_string(),
-            rarity: 3,
-            collect_cmds: HashSet::from(["g++ -o".to_string()]),
-            exp_cmds: HashSet::from(["g++ -o".to_string()]),
-        },
-        DexMon {
-            id: 22,
-            name: "Pythera".to_string(),
-            title: "The Versatile Monster".to_string(),
-            family: Family::Neural,
-            appearance: "A long serpent with scales forming readable indents; small libraries orbit its head.".to_string(),
-            description: "Pythera charms beginners and experts alike, slithering gracefully across data science, AI, and automation tasks.".to_string(),
-            rarity: 1,
-            collect_cmds: HashSet::from(["python".to_string()]),
-            exp_cmds: HashSet::from(["pip".to_string()]),
-        },
-        DexMon {
-            id: 23,
-            name: "Tensorion".to_string(),
-            title: "The Deep Learning Monster".to_string(),
-            family: Family::Neural,
-            appearance: "A living neural net of glowing nodes and layers.".to_string(),
-            description: "Tensorion processes vast data streams, learning complex patterns. It powers modern AI breakthroughs with silent dedication.".to_string(),
-            rarity: 3,
-            collect_cmds: HashSet::from(["pip install tensorflow".to_string()]),
-            exp_cmds: HashSet::from(["pip install tensorflow".to_string()]),
-        },
-        DexMon {
-            id: 24,
-            name: "Pandalyx".to_string(),
-            title: "The Data Analysis Monster".to_string(),
-            family: Family::Neural,
-            appearance: "A panda with spreadsheet-pattern fur and chart symbols orbiting its paws.".to_string(),
-            description: "Pandalyx organizes raw data into insight. With nimble claws, it cleans, transforms, and visualizes information effortlessly.".to_string(),
-            rarity: 3,
-            collect_cmds: HashSet::from(["pip install pandas".to_string()]),
-            exp_cmds: HashSet::from(["pip install pandas".to_string()]),
-        },
-        DexMon {
-            id: 25,
-            name: "Fornix".to_string(),
-            title: "The Eternal Code Monster".to_string(),
-            family: Family::Mythical,
-            appearance: "A stone sphinx crowned with archaic code glyphs, its eyes glowing like ancient CRT screens.".to_string(),
-            description: "Born from the first age of computing, Fornix whispers the wisdom of structured code. Though older than modern languages, its power endures across generations of trainers.".to_string(),
-            rarity: 5,
-            collect_cmds: HashSet::from(["cat /dev/random".to_string()]),
-            exp_cmds: HashSet::from(["man ascii".to_string()]),
-        },
-    ]
+    let path = get_dex_file_path();
+    let file = File::open(path).expect("Could not find dex file");
+    let reader = BufReader::new(file);
+    let json_dex: Vec<JsonDexMon> =
+        serde_json::from_reader(reader).expect("Could not parse dex file");
+
+    let machine_id = get_machine_id();
+    let namespace = Uuid::new_v5(&Uuid::NAMESPACE_DNS, machine_id.as_bytes());
+
+    json_dex
+        .into_iter()
+        .map(|json_mon| DexMon {
+            id: json_mon.id,
+            key: Uuid::new_v5(&namespace, json_mon.name.as_bytes()),
+            name: json_mon.name,
+            title: json_mon.title,
+            family: json_mon.family,
+            appearance: json_mon.appearance,
+            description: json_mon.description,
+            rarity: json_mon.rarity,
+            collect_cmds: json_mon.collect_cmds,
+            exp_cmds: json_mon.exp_cmds,
+        })
+        .collect()
 }
 
 #[allow(dead_code)]

@@ -11,14 +11,19 @@
     let selectedMonster = $state<PartyMon>();
 
     async function loadParty() {
-        const [dexResult, partyResult] = await Promise.all([
-            invoke<DexMon[]>("get_dex"),
-            invoke<string>("get_party"),
-        ]);
 
-        dexMonsters = dexResult;
-        partyMonsters = JSON.parse(partyResult);
-        selectedMonster = partyMonsters[0];
+        try {
+            const [dexResult, partyResult] = await Promise.all([
+                invoke<DexMon[]>("get_dex"),
+                invoke<string>("get_party"),
+            ]);
+
+            dexMonsters = dexResult;
+            partyMonsters = JSON.parse(partyResult);
+            selectedMonster = partyMonsters[0];
+        } catch(e) {
+            alert(JSON.stringify(e))
+        }
     }
 
     function handleKeydown(event: KeyboardEvent) {
