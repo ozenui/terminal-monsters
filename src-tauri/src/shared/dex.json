@@ -431,13 +431,13 @@
     "collect_cmds": [
       {
         "matcher": {
-          "StartsWith": "npm create svelte@latest"
+          "Contains": "create svelte@latest"
         },
         "exp": 25
       },
       {
         "matcher": {
-          "StartsWith": "npx sv create"
+          "Contains": "sv create"
         },
         "exp": 25
       },

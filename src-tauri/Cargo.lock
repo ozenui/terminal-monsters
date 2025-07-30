@@ -4053,6 +4053,7 @@ dependencies = [
  "cocoa",
  "dirs 4.0.0",
  "notify-rust",
+ "once_cell",
  "serde",
  "serde_json",
  "sysinfo",
